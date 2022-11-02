@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>提出課題：ルーレット</title>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        // 変数を宣言
+        var id_interval, id_current_cell, num_array;
+        var flag_roulette = false;          // ルーレット継続判定フラグ
+        var active_cells = new Array();     // セルのIDを格納する配列
+        var default_cells = new Array();    // セルのIDを格納する配列（初期化用）
+        
+        function start_roulette(){
+            // ルーレットを開始処理を行う
+            if(flag_roulette === false){
+                // 初回実行時は継続判定フラグを有効化
+                flag_roulette = true;
+            }else if(flag_roulette === true){
+                /*  ストップ後にルーレットを再起動（再抽選）する場合の処理
+                    1. セルの色を専用色に変え、選択済であると分かりやすくする
+                    2. 現在のセルIDを配列から削除し、ルーレット対象から外す
+                    3. セルの白化処理を防ぐため、現在のIDを初期化     */
+                $(id_current_cell).css({'background-color': '#fcaf17'});
+                active_cells.splice(num_array, 1);
+                id_current_cell = '';
+            }
+            // ルーレット処理を起動し、スタートボタンを無効化する
+            id_interval = setInterval(roulette, 50);
+            $('#start').prop('disabled', true); 
+        }
+
+        function stop_roulette(){
+            // ルーレットの処理を停止する
+            if(active_cells.length !== 1){
+                // 止まっていないセルが2個以上残っている場合は、フラグを戻して停止する
+                clearInterval(id_interval);
+                // スタートボタンの無効化を解除する
+                $(id_current_cell).css({'background-color': '#eb6101'});
+                $('#start').prop('disabled', false);
+            }else{
+                // セルが最後の1つだった時は、ストップ時点で色付け処理を行う
+                $(id_current_cell).css({'background-color': '#fcaf17'});
+                // スタートボタンの無効化を解除せずに終了させ、初期化するまで再起動させない
+                clearInterval(id_interval);
+            }
+        }
+
+        function reset_roulette(){
+            // ルーレットを停止させ、表示状態を初期化する
+            clearInterval(id_interval);
+            $('td').css({'background-color': 'white'});
+            // ルーレット判定用の配列を初期化する
+            active_cells.splice(0, active_cells.length);
+            for(var i = 0; i < default_cells.length; i++){
+                // すべての要素を削除した上で、初期状態を保存している配列で上書きする
+                active_cells.push(default_cells[i]);
+            }
+            // リセット直後ストップを押してもセルが着色されないよう、IDを初期化
+            id_current_cell = '';
+            // スタートボタンの無効化を解除し、ルーレット継続フラグを戻す
+            $('#start').prop('disabled', false);
+            flag_roulette = false;
+        }
+
+        function roulette(){
+            /*  ルーレット処理
+                1. 「0〜止まっていないセル数」の範囲で乱数を生成し、配列からランダムにIDを取り出す
+                2. 選ばれたセルの色を変え、ルーレットが回っている様子を演出する
+                3. 2で色付けされたセルを元の色（white）に戻す     */
+            $(id_current_cell).css({'background-color': 'white'});
+            num_array = Math.floor(Math.random() * active_cells.length);
+            id_current_cell = active_cells[num_array];
+            
+            $(id_current_cell).css({'background-color': '#f3bf88'});
+        }
+
+        function create_table(){
+            // 4x4マスのテーブルをjQueryで生成する
+            var number_cell = 1;
+            for(var i = 1; i <= 4; i++){
+                // テーブルの行（縦方向）を延長
+                var html_line = '<tr id="line_' + i + '">';
+                var id_line = '#line_' + i;
+                $('#numbers').append(html_line);
+                for(var j = 1; j <= 4; j++){
+                    // テーブルの列（横方向）を延長
+                    var html_cell = '<td id="cell_' + i + '_' + j  + '">';
+                    var id_cell = '#cell_' + i + '_' + j;
+                    $(id_line).append(html_cell);
+                    // すべてのセルに固有のセルIDを付与する
+                    $(id_cell).append(number_cell);
+                    number_cell++;
+                    // 処理用と初期化用の2つの配列にセルIDを挿入する
+                    active_cells.push(id_cell);
+                    default_cells.push(id_cell);
+                }
+            }
+            // セルの外観を調整する
+            $('tr').css({'border':'solid 1px'});
+            $('td').css({'border':'solid 1px', 'padding':'20px', 'text-align':'center'});
+        }
+
+        $(function(){
+            // テーブルとボタンの外観を調整する
+            $('.roulette-wrapper').css({'width':'100%', 'text-align':'center'});
+            $('.button-container').css({'margin-top':'20px'});
+            $('table').css({'border':'solid 3px', 'border-collapse':'collapse', 'margin':'auto'});
+            // 4x4マスのルーレット表を生成する
+            create_table();
+            // 各ボタンがクリックされたら対応する関数が実行される
+            $('#start').click(start_roulette);  // ルーレット起動
+            $('#stop').click(stop_roulette);    // ルーレット停止
+            $('#reset').click(reset_roulette);  // ルーレット初期化
+        });
+    </script>
+</head>
+<body>
+    <div class="roulette-wrapper">
+        <div class="roulette-container">
+            <!-- ルーレット部分 -->
+            <table id="numbers"></table>
+        </div>
+        <div class="button-container">
+            <!-- ボタン部分 -->
+            <button id="start">スタート</button>
+            <button id="stop">ストップ</button>
+            <button id="reset">リセット</button>
+        </div>
+    </div>
+</body>
+</html>
