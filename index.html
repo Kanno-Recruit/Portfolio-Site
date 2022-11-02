@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Kazuho Kanno's Portfolio</title>
+        <link rel="stylesheet" href="stylesheet.css">
+        <!-- Viewportの設定 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!-- ヘッダー部分 -->
+        <div class="header">
+            <div class="header-wrapper">
+                <div class="header-box">
+                    <!-- ハンバーガーメニュー -->
+                    <div class="hamburger-menu">
+                        <!-- ボタン部分 -->
+                        <input type="checkbox" id="menu-btn-check">
+                        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+                        <!-- メニュー部分 -->
+                        <div class="menu-content">
+                            <ul>
+                                <li><a href="#sec1">自己紹介</a></li>
+                                <li><a href="#sec2">実装サンプル</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- ページタイトル -->
+                    <div class="header-logo">
+                        <h1><span>K</span>azuho Kanno's Portfolio</h1>
+                    </div>
+                    <!-- ページ内リンク -->
+                    <div class="header-list">
+                        <a href="#sec1">自己紹介</a>
+                        <a href="#sec2">実装サンプル</a>
+                        <div class="clear"></div>
+                    </div>
+                    <!-- header-logo, header-listのfloat解除 -->
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <!-- メインコンテンツ部分 -->
+        <div class="main">
+            <div class="main-wrapper">
+                <!-- 自己紹介 -->
+                <h2 id="sec1" class="title-blue">自己紹介<br><span class="eng">Self introduce</span></h2>
+                <div class="intro">
+                    <p>私の名前は<span class="bold">菅野一歩</span>です。福島県出身で、現在はディーキャリアITエキスパート中野オフィスにて、プログラミングの学習に取り組んでいます。<br>どうぞよろしくお願いいたします。</p>
+                    <img src="./images/img01.jpg" alt="自己紹介">
+                </div>
+                <!-- スキル -->
+                <div class="skill">
+                    <div class="skill-box">
+                        <h3>スキル<br><span class="eng2">Skills</span></h3>
+                        <ul>
+                            <li><a class="skill-url" href="#practice1">HTML/CSS</a></li>
+                            <li><a class="skill-url" href="#practice2">JavaScript</a></li>
+                            <li><a class="skill-url" href="#practice3">PHP/MySQL</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 「実装サンプル」 -->
+                <h2 id="sec2" class="title-blue">実装サンプル<br><span class="eng">sample</span></h2>
+                <!-- 画像ギャラリー -->
+                <h3 class="title-green">画像ギャラリー</h3>
+                <div class="gallery">
+                    <div class="gallery-box">
+                        <img src="./images/gallery01.jpg" alt=”ギャラリー1“>
+                        <h4>宇宙飛行士と月</h4>
+                        <p>幻想的な色彩の月と雲の前に、宇宙飛行士が立っています。</p>
+                    </div>
+                    <div class="gallery-box">
+                        <img src="./images/gallery02.jpg" alt=”ギャラリー2“>
+                        <h4>明日と石</h4>
+                        <p>積み重ねられた石を、朝日が照らしています。</p>
+                    </div>
+                    <div class="gallery-box">
+                        <img src="./images/gallery03.jpg" alt=”ギャラリー3“>
+                        <h4>鏡のような湖</h4>
+                        <p>空と海がどちらかわからなくなるような、鏡のような湖です。</p>
+                    </div>
+                    <div class="gallery-box">
+                        <img src="./images/gallery04.jpg" alt=”ギャラリー4“>
+                        <h4>ハートの風船</h4>
+                        <p>青空をバックに、たくさんの色とりどりのハートの風船が浮いています。</p>
+                    </div>
+                </div>
+                <!-- ワークスキルコースの訓練課題 -->
+                <h3 class="title-green">訓練課題</h3>
+                <div class="practice">
+                    <div class="practice-box" id="practice1">
+                        <h4>JavaScript : ルーレット</h4>
+                        <a href="./js/index.html">
+                            <img src="./images/practice01_JS.png" alt=”訓練課題_JavaScript“>
+                        </a>
+                        <p>
+                            JQueryを使用して作成した、4x4マスのうちランダムの1マスを選択するルーレットです。停止マスは分かりやすく色付けされます。
+                            1回選択されたマスはルーレットから除外され、16回実行するとリセット以外選択できなくなります。
+                            リセットはルーレット実行前・実行中問わず実行できます。
+                        </p>
+                    </div>
+                    <div class="practice-box" id="practice2">
+                        <h4>PHP/MySQL : ECサイト</h4>
+                        <a href="./htdocs/php25/ec_top.php">
+                            <img src="./images/practice02_PHP&MySQL.png" alt=”訓練課題_PHP&MySQL“>
+                        </a>
+                        <p>
+                            商品をカートに入れて購入する機能、商品の在庫管理を行う機能、ユーザのログイン・アカウント登録機能を備える通販サイトのサンプルです。
+                            スタイルシートの適用、支払総額の表示、商品データ削除時にディレクトリに保存された画像ファイルを削除する機能のほか、
+                            重複ログインやリロードによる入力フォーム内容の多重送信を防ぐ構造になっております。
+                        </p>
+                    </div>
+                    <div class="practice-box" id="practice3">
+                        <h4>WordPress</h4>
+                        <a href="./wp/">
+                            <img src="./images/practice03_WordPress.png" alt=”訓練課題_WordPress“>
+                        </a>
+                        <p>
+                            WordPressを使用して作成した企業Webサイトのサンプルです。
+                            あらかじめ用意された静的なWebサイトをWordPressテーマとして作り替えて、外観を実装しています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- フッター部分 -->
+        <div class="footer">
+            <div class="footer-wrapper">
+                <p>Copyright © 2022 Kazuho Kanno</p>
+            </div>
+        </div>
+    </body>
+</html>

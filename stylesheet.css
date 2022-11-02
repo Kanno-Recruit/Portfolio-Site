@@ -1,0 +1,642 @@
+/*
+    -------------------- PC用レイアウト部分 --------------------
+*/
+/* リストのデフォルト余白無効化 */
+ul {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding-inline-start: 0px;
+}
+
+* {
+    /*デフォルト余白打ち消し*/
+    margin: 0px;
+    padding: 0px;
+    /* 全体にbox-sizingを適用 */
+    box-sizing: border-box;
+}
+
+/* float解除用のクラス */
+.clear {
+   clear: both; 
+}
+
+/* スムーススクロールを有効化する */
+html{
+    scroll-behavior: smooth;
+}
+
+/* ページ内リンクの移動先を、ヘッダーに隠れないよう上にずらす */
+#sec1::before, #sec2::before,
+#practice1::before, #practice2::before, #practice3::before {
+    display: block;
+    padding-top: 100px;
+    margin-top: -100px;
+    content: "";
+}
+
+/*
+    -------------------- ヘッダー部分 --------------------
+*/
+.header-wrapper {
+    height: 40vh;
+    color: #fff;
+    /* 背景画像指定 */
+    background-image: url(./images/top.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+/* ヘッダー黒ベタ部分コンテナ */
+.header-box {
+    position: fixed;
+    z-index: 10;
+    height: 80px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* ヘッダータイトル */
+.header-logo {
+    float: left;
+    padding: 20px;
+}
+
+.header-logo h1 {
+    margin: 0px; /*デフォルト打ち消し*/
+    font-size: 26px;
+    line-height: 40px;
+}
+
+.header span {
+    color: #a6acff; /* 最初の1文字だけ着色 */
+}
+
+/* ページ内リンク */
+.header-list{
+    float: right;
+    height: 80px;
+}
+
+.header-list a {
+    float: left;
+    padding: 0px 20px;
+    color: #fff;
+    line-height: 80px;
+    text-decoration: none;
+}
+
+/* ---------- ハンバーガーメニューボタン ---------- */
+.hamburger-menu {
+    display: none;  /* 画面サイズがタブレットサイズ以下になるまで表示しない */
+}
+
+.hamburger-menu input{
+    display: none;  /* チェックボックスを見えないようにする */
+}
+.menu-btn {
+    position: fixed;
+    z-index: 100;
+    top: 0;     /* 画面上端に固定表示させる */
+    right: 0;   /* 画面右端に固定表示させる */
+    height: 80px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* メニューボタンの3本線 */
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    position: absolute;
+    content: '';
+    display: block;
+    height: 3px;
+    width: 50px;
+    background-color: #fff;
+}
+.menu-btn span:before {
+    bottom: 10px;   /* 下側に線を1本表示 */
+}
+.menu-btn span:after {
+    top: 10px;      /* 上側に線を1本表示 */
+}
+
+/* メニューボタンの3本線（ボタン押下時）*/
+/* 真ん中の線を透明にし、ほか2本を傾けて交差させ、バツ印にする */
+#menu-btn-check:checked ~ .menu-btn span {
+    background-color: rgba(255, 255, 255, 0);   /* 2本目を透明化 */
+}
+#menu-btn-check:checked ~ .menu-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);   /* 1本目を45度傾ける */
+}
+#menu-btn-check:checked ~ .menu-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);  /* 3本目を-45度傾ける */
+}
+
+/* メニュー本体部分 */
+.menu-content {
+    position: fixed;
+    z-index: 80;
+    width: 30%;
+    height: 100%;
+    top: 0;
+    /* leftの値を変更してメニューを画面外へ */
+    left: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* アニメーション速度を設定 */
+    transition: all 0.5s;
+}
+#menu-btn-check:checked ~ .menu-content {
+    /* ボタン押下でチェックボックスが有効になった時のみメニューを画面内へ戻す */
+    left: 70%;
+}
+
+/* メニュー内テキスト */
+.menu-content ul {
+    padding: 90px 10px 0;
+}
+.menu-content ul li {
+    border-bottom: solid 1px #fff;
+    list-style: none;
+}
+.menu-content ul li a {
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    box-sizing: border-box;
+    color: #fff;
+    text-decoration: none;
+    padding: 9px 15px 10px 0;
+    position: relative;
+}
+
+/* 2本の枠線を45度傾けて、リスト右端に「>」をつける */
+.menu-content ul li a::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-top: solid 2px #fff;
+    border-right: solid 2px #fff;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 11px;
+    top: 16px;
+}
+
+/*
+    -------------------- 見出しテキスト部分 --------------------
+*/
+/* h2フォント（青色の見出し） */
+h2.title-blue {
+    color: #4b52a7;
+    font-size: 24px;
+    letter-spacing: 4px;
+    line-height: 24px;
+    margin-top: 80px;
+}
+
+/* h3フォント（緑色の見出し） */
+h3.title-green {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #b7b7b7; 
+    color: #32839c;
+    font-size: 16px;
+    letter-spacing: 4px;
+    margin: 80px 0px 40px 0px;
+}
+
+/*
+    -------------------- メインコンテンツ部分 --------------------
+*/
+.main-wrapper{
+    width: 1024px;
+    max-width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* ---------- 自己紹介コンテナ ---------- */
+.intro {
+    margin-top: 40px;
+}
+
+.intro img{
+    display: block;
+    max-width: 100%;
+    margin: 0px auto;
+}
+
+.intro p {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 16px;
+    line-height: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+/* 部分的にフォント設定を適用するためにspanを設定 */
+span.eng {
+    font-size: 14px;
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+/* ---------- スキルコンテナ ---------- */
+.skill {
+    display: flex;
+	justify-content: center;
+    margin-top: 40px;
+}
+
+/* 青色のボックス部分 */
+.skill-box {
+    width: 96%;
+    background-color: #8ab3dc;
+    border-radius: 10px;
+}
+
+.skill h3 {
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 4px;
+    border-bottom: 1px solid #fff;
+    padding: 20px 0px 10px 0px;
+    margin: 0px 10px;
+}
+
+span.eng2 {
+    font-size: 12px;
+}
+
+/* スキル一覧 */
+.skill ul {
+    text-align: left;
+    padding: 20px;
+    margin-left: 20px;
+    color: #feffc7;
+}
+
+.skill-url {
+    color: #ffe8f6;
+}
+
+.skill li {
+    line-height: 30px;
+}
+
+/* ---------- 画像ギャラリーコンテナ ---------- */
+.gallery {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+/* 画像と説明文のコンテナ */
+.gallery-box {
+    width: 25%;
+    margin: 0 auto;
+}
+
+/* ギャラリー画像 */
+.gallery-box img {
+    display: block;
+    width: 90%;
+    margin: 0px auto;
+}
+
+/* ギャラリータイトル */
+.gallery-box h4 {
+    width: 90%;
+    margin: 0px auto;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 6px;
+    color: #fff;
+    background-color: #758baf;
+}
+
+/* ギャラリー説明文 */
+.gallery-box p {
+    width: 90%;
+    margin: 0px auto;
+    text-align: left;
+    padding-top: 4px;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: normal;
+}
+
+/* 訓練課題一覧部分 */
+.practice {
+    width: 100%;
+    margin-bottom: 120px;
+}
+
+/* ---------- 訓練課題コンテナ ---------- */
+.practice-box {
+    width: 600px;
+    margin: 20px auto 0px auto;
+}
+
+/* 訓練課題のスクリーンショット画像 */
+.practice-box img {
+    display: block;
+    width: 90%;
+    margin: 0px auto;
+    border: 1px solid #aaa;
+}
+
+.practice-box img:hover {
+    opacity: 0.6;   /* マウスオン時に透明度を0.6にする */ 
+}
+
+/* 訓練課題のタイトル */
+.practice-box h4 {
+    width: 90%;
+    margin: 0px auto;
+    font-size: 14px;
+    line-height: 26px;
+    letter-spacing: 6px;
+    color: #fff;
+    background-color: #758baf;
+}
+
+/* 訓練課題の説明文 */
+.practice-box p {
+    width: 90%;
+    margin: 0px auto;
+    text-align: left;
+    padding-top: 10px;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: normal;
+}
+
+/*
+    -------------------- フッター部分 --------------------
+*/
+.footer-wrapper {
+    height: 120px;
+    width: 100%;
+    text-align: center;
+    background-color: #8ab3dc;
+    color: #fff;
+}
+
+.footer-wrapper p{
+    padding-top: 20px;
+}
+
+/*
+    -------------------- レスポンシブデザイン --------------------
+*/
+/*
+    -------------------- タブレット幅 --------------------
+*/
+@media(max-width: 768px){
+    /* ヘッダー部分 */
+    .header-wrapper {
+        height: 100vh;
+        background-image: url(./images/top_tab.jpg);
+    }
+
+    /* ヘッダー黒ベタ部分 */
+    .header-box {
+        height: 48px;
+    }
+
+    /* ハンバーガーメニューボタン */
+    .hamburger-menu {
+        display: block; /* ボタンを表示する */
+    }
+
+    .menu-btn {
+        height: 48px;
+        width: 48px;
+    }
+
+    /* ハンバーガーメニューボタンの3本線 */
+    .menu-btn span,
+    .menu-btn span:before,
+    .menu-btn span:after {
+        width: 30px;
+    }
+    .menu-btn span:before {
+        bottom: 6px;
+    }
+    .menu-btn span:after {
+        top: 6px;
+    }
+
+    /* ハンバーガーメニュー本体 */
+    .menu-content {
+        width: 50%;
+    }
+
+    #menu-btn-check:checked ~ .menu-content {
+        /* ボタン押下でチェックボックスが有効になった時のみメニューを画面内へ戻す */
+        left: 50%;
+    }
+
+    /* ハンバーガーメニュー内テキスト */
+    .menu-content ul {
+        padding: 54px 10px 0;
+    }
+
+    /* 上下左右のpaddingを10pxに */
+    .header-logo {
+        padding: 10px;
+    }
+
+    /* ヘッダータイトルのサイズ20px */
+    .header-logo h1 {
+        font-size: 20px;
+        margin: 0px; /*デフォルト打ち消し*/
+        line-height: 28px;
+    }
+
+    /* ページ内リンク */
+    .header-list a {
+        display: none;
+    }
+
+    /* ページ内リンクの移動先を、ヘッダーに隠れないよう上にずらす */
+    #sec1::before, #sec2::before,
+    #practice1::before, #practice2::before, #practice3::before {
+        padding-top: 58px;
+        margin-top: -58px;
+    }
+
+    /* h2見出しのサイズ20px */
+    h2.title-blue {
+        font-size: 20px;
+    }
+
+    /* 自己紹介コンテナ */
+    .intro {
+    margin-bottom: 20px;
+    }
+
+    /* 紹介文のサイズ14px 高さ24px*/
+    .intro p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    /* 画像と説明文のコンテナ */
+    .gallery {
+        /* 画像を折り返すようにする */
+        flex-wrap: wrap;
+        /* 縦方向の余白ができないので直接指定 */
+        gap: 10px 0px;
+    } 
+
+    .gallery-box {
+        width: 50%;
+    }
+
+    /* 訓練課題スクリーンショットと説明文のコンテナ */
+    .practice-box {
+        width: 100%;
+    }
+}
+
+/*
+    -------------------- スマートフォン幅 --------------------
+*/
+@media(max-width: 499px){
+    /* ヘッダー画像差し替え */
+    .header-wrapper {
+        background-image: url(./images/top_tab.jpg);
+    }
+
+    /* ヘッダー黒ベタ部分 */
+    .header-box {
+        height: 48px;
+    }
+
+    /* ハンバーガーメニューボタン */
+    .hamburger-menu {
+        display: block; /* ボタンを表示する */
+    }
+
+    .menu-btn {
+        height: 48px;
+        width: 48px;
+    }
+
+    /* ハンバーガーメニューボタンの3本線 */
+    .menu-btn span,
+    .menu-btn span:before,
+    .menu-btn span:after {
+        width: 30px;
+    }
+    .menu-btn span:before {
+        bottom: 6px;
+    }
+    .menu-btn span:after {
+        top: 6px;
+    }
+
+    /* ハンバーガーメニュー本体 */
+    .menu-content {
+        width: 100%;
+    }
+
+    #menu-btn-check:checked ~ .menu-content {
+        /* ボタン押下でチェックボックスが有効になった時のみメニューを画面内へ戻す */
+        left: 0;
+    }
+
+    /* ハンバーガーメニュー内テキスト */
+    .menu-content ul {
+        padding: 54px 10px 0;
+    }
+
+    /* 上下左右のpaddingを10pxに */
+    .header-logo {
+        padding: 10px;
+    }
+
+    /* ヘッダータイトルのサイズ20px */
+    .header-logo h1 {
+        font-size: 20px;
+        margin: 0px; /*デフォルト打ち消し*/
+        line-height: 28px;
+    }
+
+    /* ページ内リンク */
+    .header-list a {
+        display: none;
+    }
+
+    /* ページ内リンクの移動先を、ヘッダーに隠れないよう上にずらす */
+    #sec1::before, #sec2::before,
+    #practice1::before, #practice2::before, #practice3::before {
+        padding-top: 58px;
+        margin-top: -58px;
+    }
+
+    /* メインコンテンツ部分 */
+    .main-wrapper{
+        max-width: 90%;
+    }
+
+    /* h2見出しのサイズ20px */
+    h2.title-blue {
+        font-size: 20px;
+    }
+
+    /* 自己紹介コンテナ */
+    .intro {
+    margin-bottom: 20px;
+    }
+
+    /* 紹介文のサイズ14px 高さ24px*/
+    .intro p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+    
+    /* 好きなもの&webサイトコンテナ */
+    .skills {
+        /* flex要素を縦並びにする */
+        flex-direction: column;
+        /* 縦方向の余白ができないので直接指定 */
+        gap: 10px 0px;
+    }
+
+    .skill-box {
+        width: 100%;
+    }
+
+    /* 画像と説明文のコンテナ */
+    .gallery {
+        /* flex要素を縦並びにする */
+        flex-direction: column;
+        /* 縦方向の余白ができないので直接指定 */
+        gap: 40px 0px;
+    }
+
+    .gallery-box {
+        width: 100%;
+    }
+
+    .gallery-box img, .gallery-box h4, .gallery-box p {
+        width: 80%;
+    }
+
+    /* 訓練課題スクリーンショットと説明文のコンテナ */
+    .practice-box {
+    width: 100%;
+    }
+}
